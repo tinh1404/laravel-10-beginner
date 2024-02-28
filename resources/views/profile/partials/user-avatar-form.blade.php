@@ -9,23 +9,29 @@
         </p>
     </header>
 
-
-
-    <form method="post" action="/profile/avatar">
-
-    </form>
-
-    <div>
-        <x-input-label for="name" value="Avatar" />
-        <x-text-input id="avatar" avatar="avatar" type="file" class="mt-1 block w-full" :value="old('avatar', $user->avatar)" required autofocus autocomplete="avatar" />
-        <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
+    @if (session('message'))
+    <div class="text-red-500">
+        {{ session('message') }}
     </div>
+    @endif
 
 
-    <div class="flex items-center gap-4 mt-4">
-        <x-primary-button>{{ __('Save') }}</x-primary-button>
+    <form method="post" action=" {{ route('profile.avatar') }}">
 
-    </div>
+        @method('patch')
+        @csrf
+
+        <div>
+            <x-input-label for="name" value="Avatar" />
+            <x-text-input id="avatar" avatar="avatar" type="file" class="mt-1 block w-full" :value="old('avatar', $user->avatar)" required autofocus autocomplete="avatar" />
+            <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
+        </div>
+
+
+        <div class="flex items-center gap-4 mt-4">
+            <x-primary-button>{{ __('Save') }}</x-primary-button>
+
+        </div>
     </form>
 
 </section>
